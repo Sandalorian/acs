@@ -1,0 +1,39 @@
+---
+# tasks file for downloading ACS from Nexus
+
+- name: "Download.yml: Download Alfresco Content Services 6.1.0 (distribution zip)"
+  get_url:
+    url: "{{ nexus_url }}"
+    dest: "{{ acs_install_folder }}/alfresco-content-services-distribution-6.1.0.zip"
+    checksum: md5:8c649afb76e9942762376b5b62a10592
+    mode: 0444
+    url_username: "{{ nexus_user }}"
+    url_password: "{{ nexus_password }}"
+  no_log: true
+  register: isDownloaded
+  ignore_errors: true
+
+- debug:
+    msg: "{{ isDownloaded }}"
+    verbosity: 1
+
+- debug:
+    msg: "unexpected error occured: {{ isDownloaded.response }} "
+  when: isDownloaded.status_code is defined and not isDownloaded.status_code == 200
+
+- name: "Download.yml: untar instllation and clean up"
+  block:
+    - name: "unarchive {{ acs_install_folder }}/alfresco-content-services-distribution-6.1.0.zip"
+      unarchive:
+        src: '{{ acs_install_folder }}/alfresco-content-services-distribution-6.1.0.zip'
+        dest: "{{ acs_install_folder }}"
+        owner: "{{ acs_user }}"
+        group: "{{ acs_group }}"
+        creates: '{{ acs_install_folder }}/web-server/webapps/alfresco.war'
+        remote_src: true
+
+    - name: "Download.yml: Clear up downloaded ACS binary"
+      file:
+        path: "{{ acs_install_folder }}/alfresco-content-services-distribution-6.1.0.zip"
+        state: absent
+  when: not isDownloaded.failed
