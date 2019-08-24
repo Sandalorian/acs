@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: sirreeall
+  description: Downloads and unpacks Alfresco Content Services 6.1 from Nexus
+
+  license: Free
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+dependencies: []
