@@ -1,0 +1,26 @@
+---
+# Based on Jeff Geerling's testing
+# For example:
+# https://github.com/geerlingguy/ansible-role-kibana/blob/master/.travis.yml
+
+language: python
+services: docker
+
+env:
+  global:
+    - ROLE_NAME: tomcat
+  matrix:
+    - MOLECULE_DISTRO: centos7
+
+install:
+  # Install test dependencies.
+  - pip install molecule docker
+
+before_script:
+
+script:
+  # Run tests.
+  - molecule test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
