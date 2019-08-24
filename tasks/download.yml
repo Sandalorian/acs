@@ -19,6 +19,7 @@
 
 - debug:
     msg: "unexpected error occured: {{ isDownloaded.response }} "
+    verbosity: 1
   when: isDownloaded.status_code is defined and not isDownloaded.status_code == 200
 
 - name: "Download.yml: untar instllation and clean up"

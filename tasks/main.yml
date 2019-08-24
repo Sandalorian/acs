@@ -3,6 +3,7 @@
 
 - debug:
     msg: "{{ ansible_env }}"
+    verbosity: 1
 
 - name: Create {{ acs_user }} user account
   user:
@@ -31,17 +32,21 @@
   block:
     - debug:
         msg: "{{ acs_install_folder }} is not empty, skipping other tasks"
+        verbosity: 1
       when: acs_install_folder_contents.stdout
     - debug:
         msg: "{{ acs_install_folder }} is empty, continuing"
+        verbosity: 1
       when: not acs_install_folder_contents.stdout
 
 - debug:
     msg: "Nexus user not specified, skiping download"
+    verbosity: 1
   when: nexus_user == None
 
 - debug:
     msg: "Nexus password not specified, skiping download"
+    verbosity: 1
   when: nexus_password == None
 
 - name: download ACS from Nexus
