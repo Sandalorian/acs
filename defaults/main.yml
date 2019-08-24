@@ -1,2 +1,16 @@
 ---
 # defaults file for acs
+acs_install_folder: "/opt/alfresco"
+
+acs_user: "alfresco"
+
+nexus_user:
+nexus_password:
+
+nexus_url: "https://artifacts.alfresco.com\
+            /nexus/content/groups/internal\
+            /org/alfresco/alfresco-content-services-distribution\
+            /6.1.0/alfresco-content-services-distribution-6.1.0.zip"
+
+## for testing purposes
+download_from_maven: false

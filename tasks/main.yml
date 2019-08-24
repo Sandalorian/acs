@@ -1,2 +1,46 @@
 ---
 # tasks file for acs
+
+- name: Create {{ acs_user }} user account
+  user:
+    name: "{{ acs_user }}"
+    shell: /bin/bash
+
+- name: Create {{ acs_install_folder }}
+  file:
+    path: "{{ acs_install_folder }}"
+    state: directory
+    owner: "{{ acs_user }}"
+    group: "{{ acs_user }}"
+    mode: 0755
+  register: createdInstallFolder
+
+- debug:
+    msg: "{{ createdInstallFolder }}"
+    verbosity: 1
+
+- name: get content of {{ acs_install_folder }}
+  command: ls {{ acs_install_folder }}
+  register: acs_install_folder_contents
+  changed_when: false
+
+- name:
+  block:
+    - debug:
+        msg: "{{ acs_install_folder }} is not empty, skipping other tasks"
+      when: acs_install_folder_contents.stdout
+    - debug:
+        msg: "{{ acs_install_folder }} is empty, continuing"
+      when: not acs_install_folder_contents.stdout
+
+- debug:
+    msg: "Nexus user not specified, skiping download"
+  when: nexus_user == None
+
+- debug:
+    msg: "Nexus password not specified, skiping download"
+  when: nexus_password == None
+
+- name: download ACS from Nexus
+  include_tasks: download.yml
+  when: not nexus_user == None and not nexus_password == None and not acs_install_folder_contents.stdout

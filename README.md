@@ -16,6 +16,10 @@ Requirements
 
 Quite a few. This is work in progress.
 
+This use Ansilble Unarchive module which requires gtar or unzip to be installed on the target host.
+
+The acs_install_folder can be created before hand, however it must be empty. If the directory is not empty, all other tasks will be skipped for safty.
+
 Role Variables
 --------------
 

@@ -2,4 +2,8 @@
 - name: Converge
   hosts: all
   roles:
+    # ALFRESCO_NEXUS_PASSWORD and ALFRESCO_NEXUS_USER need be define environment variables
     - role: acs
+      vars: 
+        nexus_password: "{{ ansible_env.ALFRESCO_NEXUS_PASSWORD }}"
+        nexus_user: "{{ ansiblie_env.ALFRESCO_NEXUS_USER }}"
