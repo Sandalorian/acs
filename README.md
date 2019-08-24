@@ -10,9 +10,9 @@ Performs the following actions:
 Requirements
 ------------
 
-This use Ansilble Unarchive module which requires gtar or unzip to be installed on the target host.
+This uses [Ansilble Unarchive](https://docs.ansible.com/ansible/latest/modules/unarchive_module.html) module which requires gtar or unzip to be installed on the target host.
 
-The acs_install_folder can be created before hand, however it must be empty. If the directory is not empty, all other tasks will be skipped for safty.
+The acs_install_folder can be created before hand, however it must be empty. **If the directory is not empty, all other tasks will be skipped for safty.**
 
 Role Variables
 --------------
@@ -38,20 +38,20 @@ Example Playbook
 
 Here is how to user var_prompts to run this role
 
----
-\- hosts: all
-
+```yaml
+- hosts: all
   vars_prompt:
-    \- name: nexus_user
+    - name: nexus_user
       prompt: "Please specify your Maven username: "
       private: no
 
-    \- name: nexus_password
+    - name: nexus_password
       prompt: "Please specify your Maven password: "
       private: yes
       encrypt: "sha512_crypt"
   
   include_role: name: docker-ce
+```
 
 License
 -------
