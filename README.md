@@ -1,20 +1,14 @@
-#Work in progress and no where near ready :)
-
-
 acs
 =========
 
-Performs the following actions by default:
-1. Downloads Alfresco Content Services 6.1 from Nexus (this requires Nexus credentials which must be obtained from Alfresco Customer Support)
-2. Installs and configures the ACS 6.1 war files into Tomcat.
-3. Configures Tomcat so the war files can be deployed.
-4. TBC
+[![Build Status](https://travis-ci.org/sirReeall/acs.svg?branch=master)](https://travis-ci.org/sirReeall/acs)
 
+Performs the following actions:
+1. Downloads Alfresco Content Services 6.1 from Nexus (this requires Nexus credentials which must be obtained from Alfresco Customer Support)
+2. Extracts the downloaded zip to the specified acs_install_folder directory
 
 Requirements
 ------------
-
-Quite a few. This is work in progress.
 
 This use Ansilble Unarchive module which requires gtar or unzip to be installed on the target host.
 
@@ -23,15 +17,29 @@ The acs_install_folder can be created before hand, however it must be empty. If 
 Role Variables
 --------------
 
-Quite a few. This is work in progress.
+**Manditory Variables**
 
-Dependencies
-------------
+Both nexus_user and nexus_password must be specified when using this role. 
+There are a number of ways to do this, for example:
+1. Passing at the command line using --extra_vars **(not recommended)**
+2. Using var_prompt
+3. Using ansible-vault
 
-Quite a few. This is work in progress.
+| Name | Default | Remarks |
+| --- | --- | --- |
+| acs_install_folder | /opt/alfresco | The location where the zip file is download and extracted |
+| acs_user | alfresco | The user account that will own the extracted files and acs_install_folder |
+| nexus_user |  | **Manditory** |
+| nexus_password |  | **Manditory** |
+| nexus_url | "https://artifacts.alfresco.com\
+            /nexus/content/groups/internal\
+            /org/alfresco/alfresco-content-services-distribution\
+            /6.1.0/alfresco-content-services-distribution-6.1.0.zip" | URL to zip file |
 
 Example Playbook
 ----------------
+
+
 
 License
 -------
