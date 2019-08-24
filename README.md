@@ -19,7 +19,7 @@ Role Variables
 
 **Manditory Variables**
 
-Both nexus_user and nexus_password must be specified when using this role. 
+Both **nexus_user** and **nexus_password** must be specified when using this role. 
 There are a number of ways to do this, for example:
 1. Passing at the command line using --extra_vars **(not recommended)**
 2. Using var_prompt
@@ -31,15 +31,27 @@ There are a number of ways to do this, for example:
 | acs_user | alfresco | The user account that will own the extracted files and acs_install_folder |
 | nexus_user |  | **Manditory** |
 | nexus_password |  | **Manditory** |
-| nexus_url | "https://artifacts.alfresco.com\
-            /nexus/content/groups/internal\
-            /org/alfresco/alfresco-content-services-distribution\
-            /6.1.0/alfresco-content-services-distribution-6.1.0.zip" | URL to zip file |
+| nexus_url | https://artifacts.alfresco.com/nexus/content/groups/internal/org/alfresco/alfresco-content-services-distribution/6.1.0/alfresco-content-services-distribution-6.1.0.zip | URL to zip file |
 
 Example Playbook
 ----------------
 
+Here is how to user var_prompts to run this role
 
+---
+\- hosts: all
+
+  vars_prompt:
+    \- name: nexus_user
+      prompt: "Please specify your Maven username: "
+      private: no
+
+    \- name: nexus_password
+      prompt: "Please specify your Maven password: "
+      private: yes
+      encrypt: "sha512_crypt"
+  
+  include_role: name: docker-ce
 
 License
 -------
