@@ -13,6 +13,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
+    # use environment variables from OS
     env:
       ALFRESCO_NEXUS_USER: ${ALFRESCO_NEXUS_USER}
       ALFRESCO_NEXUS_PASSWORD: ${ALFRESCO_NEXUS_PASSWORD}
