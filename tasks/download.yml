@@ -13,15 +13,6 @@
   register: isDownloaded
   ignore_errors: true
 
-- debug:
-    msg: "{{ isDownloaded }}"
-    verbosity: 1
-
-- debug:
-    msg: "unexpected error occured: {{ isDownloaded.response }} "
-    verbosity: 1
-  when: isDownloaded.status_code is defined and not isDownloaded.status_code == 200
-
 - name: "Download.yml: untar instllation and clean up"
   block:
     - name: "unarchive {{ acs_install_folder }}/alfresco-content-services-distribution-6.1.0.zip"
